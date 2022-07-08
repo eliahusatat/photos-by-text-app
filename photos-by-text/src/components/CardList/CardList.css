@@ -1,0 +1,13 @@
+
+.list-container {
+    margin : 50px;
+    display: grid;
+    grid-template-columns: 20rem 20rem 20rem 20rem 20rem;
+    grid-gap: 3rem;
+    grid-auto-flow: row;
+}
+
+
+
+
+
