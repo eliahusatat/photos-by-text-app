@@ -1,0 +1,79 @@
+/* ==========================================================================
+       Dropdown menu
+    ========================================================================== */
+
+/* RESETS
+============================================ */
+
+
+
+/* DROPDOWN
+============================================ */
+
+.dd-wrapper {
+    display: flex;
+    min-height: 38px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 120px;
+
+    .dd-header {
+        border: 2px solid gray;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        width: 150px;
+        height: 30px;
+        padding: 2px 20px;
+
+        &__title--bold {
+            font-weight: bold;
+            margin: 5px 20px 10px 20px;
+        }
+    }
+
+    .dd-list {
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+        padding: 0;
+        margin: 0;
+        width: 190px;
+
+        li {
+            list-style-type: none;
+
+            &:first-of-type {
+                > button {
+                    border-top: 1px solid #ccc;
+                    border-top-left-radius: 4px;
+                    border-top-right-radius: 4px;
+                }
+            }
+
+            &:last-of-type > button {
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+
+            button {
+                display: flex;
+                justify-content: space-between;
+                background-color: white;
+                font-size: 16px;
+                padding: 15px 20px 15px 20px;
+                border: 0;
+                border-bottom: 1px solid #ccc;
+                width: 100%;
+                text-align: left;
+                border-left: 1px solid #ccc;
+                border-right: 1px solid #ccc;
+
+                &:hover, &:focus {
+                    cursor: pointer;
+                    font-weight: bold;
+                    background-color: #ccc;
+                }
+            }
+        }
+    }
+}

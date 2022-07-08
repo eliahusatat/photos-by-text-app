@@ -1,9 +1,11 @@
-
+// Components
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 function SearchPage() {
 
     return (
-        <div className="home">
+        <div>
+            <SearchBar/>
             this is SearchPage
         </div>
     )
