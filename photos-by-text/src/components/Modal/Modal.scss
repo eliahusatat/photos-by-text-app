@@ -1,0 +1,52 @@
+.modal{
+    margin-top: 400px;
+    padding: 12px;
+    background-color: #c9cdd4;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    display: table; /* This is important */
+    overflow-y: auto;
+    overflow-x: auto;
+    width: auto;
+    min-width: 300px;
+}
+//@keyframes fadeIn {
+//    from { opacity: 0; }
+//    to { opacity: 1; }
+//}
+//@keyframes fadeOut {
+//    from { opacity: 1; }
+//    to { opacity: 0; }
+//}
+.modal--close,.modal--open{
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 50vh;
+    animation: fadeOut 1s;
+}
+.modal--open{
+    display: flex;
+    animation: fadeIn 1.5s;
+}
+.close{
+    cursor: pointer;
+    display: block;
+    background: gray;
+    width: 50px;
+    float: right;
+}
+.modal span{
+    color: white;
+    font-size: 20px;
+}
+.modalText{
+    width: 100%;
+    display: inline-block;
+}

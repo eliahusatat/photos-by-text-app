@@ -18,8 +18,8 @@ export const extractFlickrData = (str) => {
  */
 export const getFlickrPhotoUrl = (photo , size = 'small') => {
     const Suffix = {
-        small : 'n',
-        medium : 'z',
+        small : 'm',
+        medium : 'c',
         large : 'h',
     }
     return `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_${Suffix[size]}.jpg`;

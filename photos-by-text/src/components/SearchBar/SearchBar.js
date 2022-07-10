@@ -1,16 +1,18 @@
+//hooks
+import useSearchPhotos from "../../hooks/useSearchPhotos";
 import { useState , useContext } from "react";
+
+//store
 import {StoreContext} from "../../stores/StoreProvider";
-import { useObserver } from "mobx-react";
+
+import { observer } from "mobx-react";
+
 //style
 import './SearchBar.scss';
 
 // Components
 import Dropdown from "../Dropdown/Dropdown";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-
-//hooks
-import useSearchPhotos from "../../hooks/useSearchPhotos";
-
 
 function SearchBar() {
     const store = useContext(StoreContext);
@@ -23,14 +25,10 @@ function SearchBar() {
         e.preventDefault();
         setQueryToSearch(query)
         store.addSearchHistoryItems(query)
-        console.log('store.addSearchHistoryItems(query)')
-        // store.setData('isLoading' , !store.isLoading)
+        store.setData('lastQuery',query)
     }
-    const { loading, error, photos} = useSearchPhotos(queryToSearch, 1)
-    console.log(loading)
-    console.log(error)
-    console.log(photos)
-    return useObserver(() => (
+    useSearchPhotos(queryToSearch, store.pageNumber)
+    return  (
     <div className="side-by-side">
         <div className="container">
             <form className="nosubmit" onSubmit={onFormSubmit}>
@@ -44,6 +42,7 @@ function SearchBar() {
         {store.searchHistoryItems.length > 0 &&<Dropdown items={store.searchHistoryItems} onChangeDropdown={onChangeDropdown}></Dropdown>}
         {store.isLoading && <LoadingSpinner />}
     </div>
-    ))
+    )
 }
-export default SearchBar
+
+export default observer(SearchBar)

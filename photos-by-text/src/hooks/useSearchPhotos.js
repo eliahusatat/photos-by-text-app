@@ -1,23 +1,19 @@
-import {useContext, useEffect, useState} from 'react'
+import {useContext, useEffect} from 'react'
 import axios from 'axios'
 import { extractFlickrData } from '../utils/Helper'
 import {StoreContext} from "../stores/StoreProvider";
 
-export default function useSearchPhotos(query, pageNumber) {
+ function useSearchPhotos(query, pageNumber ) {
     const store = useContext(StoreContext);
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
-    const [photos, setPhotos] = useState([])
-    // const [hasMore, setHasMore] = useState(false)
-
     useEffect(() => {
-        setPhotos([])
-    }, [query, pageNumber])
+        store.setData('photos',[])
+        store.setData('pageNumber',1)
+        // eslint-disable-next-line
+    }, [query])
 
     useEffect(() => {
         console.log('in useSearchPhotos useEffect run')
-        setLoading(true)
-        setError(false)
+        store.setData('isLoading' , true)
         let cancel
         axios({
             method: 'GET',
@@ -30,35 +26,31 @@ export default function useSearchPhotos(query, pageNumber) {
                 page: pageNumber },
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(res => {
-            console.log('in axios then')
             let json  = extractFlickrData(res.data)
-               // eslint-disable-next-line
-                store.setData('photos',json.photos.photo.map(el => {
-                        return {
-                            id: el.id,
-                            dateTaken: el.datetaken,
-                            title: el.title,
-                            // description: el.description,
-                            ownerName: el.ownername,
-                            server: el.server,
-                            secret: el.secret
-                        };
-                    }
-                        ))
-            // setPhotos(prevPhotos => {
-            //     return [...new Set([...prevPhotos, ...res.data.docs.map(b => b.title)])]
-            //     // return [...new Set([...prevBooks, ...res.data.docs.map(b => b.title)])]
-            // })
-            // setHasMore(res.data.docs.length > 0)
-            setLoading(false)
+            // eslint-disable-next-line
+            store.setData('photos', [...store.photos , ...json.photos.photo.map(el => {
+                    return {
+                        id: el.id,
+                        dateTaken: el.datetaken,
+                        title: el.title,
+                        description: el.description._content,
+                        ownerName: el.ownername,
+                        server: el.server,
+                        secret: el.secret
+                    };
+                }
+            )])
+            //  eslint-disable-next-line
+            store.setData('hasMore' , json.photos.photo.length > 0)
+            store.setData('isLoading' , false)
         }).catch(e => {
             if (axios.isCancel(e)) return
-            setError(true)
+            // setError(true)
         })
         return () => cancel()
         // eslint-disable-next-line
     }, [query, pageNumber])
 
-    // return { loading, error, books, hasMore }
-    return { loading, error, photos}
 }
+
+export default useSearchPhotos
