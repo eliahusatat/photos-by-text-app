@@ -6,6 +6,9 @@
     grid-gap: 3rem;
     grid-auto-flow: row;
 }
+.result-text{
+    font-weight: bold;
+}
 
 
 

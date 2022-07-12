@@ -4,7 +4,7 @@ import { useObserver } from "mobx-react";
 import './Card.css';
 
 import {getFlickrPhotoUrl} from "../../utils/Helper"
-import STRINGS from "../../constants/Strings";
+import STRINGS from "../../constants/strings";
 
 
 function Card({photo , onClickCard , size = 'small' , innerRef = null}) {
@@ -23,7 +23,8 @@ function Card({photo , onClickCard , size = 'small' , innerRef = null}) {
             <div className="card-title">
                 <h4>{STRINGS.TAKEN_ON + photo.dateTaken}</h4>
             </div>
-            {  photo.description?.length > 0 && <div className="card-body">
+            <div>
+            {  photo.description?.trim().length > 0  &&<div className="card-body">
                 <h5>{STRINGS.DESCRIPTION}</h5>
                 {photo.description?.length < 80 || size === 'medium' ?
                     <div dangerouslySetInnerHTML={{__html: photo.description}}></div>
@@ -35,6 +36,7 @@ function Card({photo , onClickCard , size = 'small' , innerRef = null}) {
                 }
             </div>
             }
+            </div>
         </div>
     ))
 }

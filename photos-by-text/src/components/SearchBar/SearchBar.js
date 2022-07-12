@@ -12,7 +12,7 @@ import './SearchBar.scss';
 
 // Components
 import Dropdown from "../Dropdown/Dropdown";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import STRINGS from "../../constants/strings";
 
 function SearchBar() {
     const store = useContext(StoreContext);
@@ -23,12 +23,16 @@ function SearchBar() {
     }
     const onFormSubmit = e => {
         e.preventDefault();
-        setQueryToSearch(query)
-        store.addSearchHistoryItems(query)
-        store.setData('lastQuery',query)
+        if(query !== ''){
+            setQueryToSearch(query)
+            store.addSearchHistoryItems(query)
+            store.setData('lastQuery',query)
+        }
     }
     useSearchPhotos(queryToSearch, store.pageNumber)
     return  (
+        <div>
+        <h1>{STRINGS.HEAD_LINE}</h1>
     <div className="side-by-side">
         <div className="container">
             <form className="nosubmit" onSubmit={onFormSubmit}>
@@ -40,8 +44,8 @@ function SearchBar() {
             </form>
         </div>
         {store.searchHistoryItems.length > 0 &&<Dropdown items={store.searchHistoryItems} onChangeDropdown={onChangeDropdown}></Dropdown>}
-        {store.isLoading && <LoadingSpinner />}
     </div>
+        </div>
     )
 }
 

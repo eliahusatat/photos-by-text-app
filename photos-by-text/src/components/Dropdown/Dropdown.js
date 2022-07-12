@@ -1,5 +1,5 @@
 import React, { useState ,useEffect } from 'react';
-import onClickOutside from 'react-onclickoutside';
+// import onClickOutside from 'react-onclickoutside';
 import './Dropdown.scss';
 
 function Dropdown({ title = 'search history', items, multiSelect = false , onChangeDropdown}) {
@@ -22,6 +22,7 @@ function Dropdown({ title = 'search history', items, multiSelect = false , onCha
             );
             setSelection([...selectionAfterRemoval]);
         }
+        setOpen(false);
     }
 
     // function isItemInSelection(item) {
@@ -68,8 +69,9 @@ function Dropdown({ title = 'search history', items, multiSelect = false , onCha
     );
 }
 
-const clickOutsideConfig = {
-    handleClickOutside: () => Dropdown.handleClickOutside,
-};
+// const clickOutsideConfig = {
+//     handleClickOutside: () => Dropdown.handleClickOutside,
+// };
 
-export default onClickOutside(Dropdown, clickOutsideConfig);
+// export default onClickOutside(Dropdown, clickOutsideConfig);
+export default Dropdown;
