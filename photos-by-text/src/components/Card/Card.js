@@ -1,14 +1,20 @@
-import { useObserver } from "mobx-react";
-
+import {observer} from "mobx-react";
 //style
 import './Card.css';
-
+//helper function
 import {getFlickrPhotoUrl} from "../../utils/Helper"
+//constants
 import STRINGS from "../../constants/strings";
 
-
+/***
+ * card component
+ * @param photo object of photo from fliker api
+ * @param onClickCard: function to execute when card is clicked
+ * @param size :string - small or medium
+ * @param innerRef reference for the card (Optional)
+ */
 function Card({photo , onClickCard , size = 'small' , innerRef = null}) {
-    return useObserver(() => (
+    return(
         <div className={'card-container-'+ size} onClick={onClickCard}>
             <div className={'image-container-'+ size}>
                 { innerRef ?
@@ -38,6 +44,6 @@ function Card({photo , onClickCard , size = 'small' , innerRef = null}) {
             }
             </div>
         </div>
-    ))
+    )
 }
-export default Card;
+export default observer(Card);

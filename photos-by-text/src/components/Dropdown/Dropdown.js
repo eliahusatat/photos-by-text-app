@@ -1,40 +1,42 @@
 import React, { useState ,useEffect } from 'react';
-// import onClickOutside from 'react-onclickoutside';
 import './Dropdown.scss';
 
+/***
+ * generic dropdown component according to:
+ * @param title : string - The title of the dropdown button
+ * @param items array  - items to display in the dropdown
+ * @param multiSelect : boolean - multiple items to be selected?
+ * @param onChangeDropdown :function - called when the dropdown is changed
+ */
 function Dropdown({ title = 'search history', items, multiSelect = false , onChangeDropdown}) {
     const [open, setOpen] = useState(false);
     const [selection, setSelection] = useState([]);
     const toggle = () => setOpen(!open);
-    Dropdown.handleClickOutside = () => setOpen(false);
+
 
     function handleOnClick(item) {
-        if (!selection.some(current => current.value === item.value)) {
+        if (!selection.some(current => current.value === item.value)) {  // if not selected insert to selection list
             if (!multiSelect) {
                 setSelection([item]);
             } else if (multiSelect) {
                 setSelection([...selection, item]);
             }
-        } else {
+        } else { // if already selected remove selection
             let selectionAfterRemoval = selection;
             selectionAfterRemoval = selectionAfterRemoval.filter(
                 current => current.value !== item.value
             );
             setSelection([...selectionAfterRemoval]);
         }
-        setOpen(false);
+        setOpen(false); // on every click clos the dropdown
     }
 
-    // function isItemInSelection(item) {
-    //     if (selection.some(current => current.value === item.value)) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
+    // run onChangeDropdown on every selected item on dropdown change
     useEffect(() => {
         if (selection.length > 0) {
-            onChangeDropdown(selection[0].value);
+            selection.forEach(item => {
+                onChangeDropdown(item.value);
+            })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selection]);
@@ -46,12 +48,10 @@ function Dropdown({ title = 'search history', items, multiSelect = false , onCha
                 className="dd-header"
                 role="button"
                 onKeyPress={() => toggle(!open)}
-                onClick={() => toggle(!open)}
-            >
+                onClick={() => toggle(!open)}>
                 <div className="dd-header__title">
                     <p className="dd-header__title--bold">{title}</p>
                 </div>
-
             </div>
             {open && (
                 <ul className="dd-list">
@@ -59,7 +59,6 @@ function Dropdown({ title = 'search history', items, multiSelect = false , onCha
                         <li className="dd-list-item" key={index}>
                             <button type="button" onClick={() => handleOnClick(item)}>
                                 <span>{item.value}</span>
-                                {/*<span>{isItemInSelection(item) && 'Selected'}</span>*/}
                             </button>
                         </li>
                     ))}
@@ -69,9 +68,4 @@ function Dropdown({ title = 'search history', items, multiSelect = false , onCha
     );
 }
 
-// const clickOutsideConfig = {
-//     handleClickOutside: () => Dropdown.handleClickOutside,
-// };
-
-// export default onClickOutside(Dropdown, clickOutsideConfig);
 export default Dropdown;

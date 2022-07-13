@@ -3,9 +3,10 @@ import axios from 'axios'
 import { extractFlickrData } from '../utils/Helper'
 import {StoreContext} from "../stores/StoreProvider";
 import API_CONSTANTS from "../constants/api";
+import STRINGS from "../constants/strings";
 
 /**
- * this hook send the request to flickr api
+ * this hook send the request to flickr api according to : https://www.youtube.com/watch?v=NZKUirTtxcg
  */
  function useSearchPhotos(query, pageNumber) {
 
@@ -14,7 +15,7 @@ import API_CONSTANTS from "../constants/api";
 
 
      /**
-      * if we search new query - reset all photos ,pageNumber and hasMore
+      * if we search new query - reset  photos ,pageNumber and hasMore
       */
     useEffect(() => {
         store.setData('photos',[])
@@ -37,7 +38,7 @@ import API_CONSTANTS from "../constants/api";
                 params: {
                     tags: query,
                     method: API_CONSTANTS.FLICKR_API_FUNCTION,
-                    api_key: '059424fc193f861f0759910ce6215043',
+                    api_key: process.env.REACT_APP_BASE_URL,
                     format: 'json',
                     extras: 'date_taken,owner_name,description',
                     page: pageNumber
@@ -45,6 +46,7 @@ import API_CONSTANTS from "../constants/api";
                 cancelToken: new axios.CancelToken(c => cancel = c)
             }).then(res => {
                 const json = extractFlickrData(res.data)
+                // add the new photos to the array
                 store.setData('photos', [...store.photos, ...json.photos.photo.map(el => {
                         return {
                             id: el.id,
@@ -61,8 +63,10 @@ import API_CONSTANTS from "../constants/api";
                 store.setData('isLoading', false)
             }).catch(e => {
                 store.setData('isLoading', false)
-                if (axios.isCancel(e)) return
-                // setError(true)
+                // in case we send new result before the current finish
+                if (axios.isCancel(e)) return;
+                store.setData('alertText', STRINGS.API_ERROR)
+                store.setData('openAlert', true)
             })
             return () => cancel()
         }
