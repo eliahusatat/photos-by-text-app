@@ -7,5 +7,5 @@
 #### `git clone https://github.com/eliahusatat/photos-by-text-app.git`
 #### `cd /photos-by-text`
 #### `npm install`
-#### 3 `npm start`
+#### `npm start`
 
