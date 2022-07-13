@@ -1,9 +1,9 @@
-# photos by text app
+# Photos by text app
 
 #### A simple app to search photos in flickr with search history and infinite scroll 
-#### using react mobex and react-router
+#### using React Mobex and React-Router
 
-#### getting started:
+#### Getting started:
 #### `git clone https://github.com/eliahusatat/photos-by-text-app.git`
 #### `cd /photos-by-text`
 #### `npm install`
