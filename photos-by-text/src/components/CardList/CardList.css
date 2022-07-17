@@ -2,7 +2,6 @@
 .list-container {
     margin : 50px;
     display: grid;
-    grid-template-columns: 20rem 20rem 20rem 20rem 20rem;
     grid-gap: 3rem;
     grid-auto-flow: row;
 }
@@ -10,6 +9,32 @@
     font-weight: bold;
 }
 
+@media only screen and (min-width: 1464px) {
+    .list-container {
+        grid-template-columns: 20rem 20rem 20rem 20rem 20rem!important;
+    }
+}
+@media only screen and (min-width: 1364px) and (max-width: 1764px){
+    .list-container {
+        grid-template-columns: 20rem 20rem 20rem 20rem !important;
+    }
+}
+
+@media only screen and (min-width: 1100px) and (max-width: 1364px){
+    .list-container {
+        grid-template-columns: 20rem 20rem 20rem !important;
+    }
+}
+@media only screen and (min-width: 700px) and (max-width: 1100px){
+    .list-container {
+        grid-template-columns: 20rem 20rem !important;
+    }
+}
+@media only screen and (max-width: 700px) {
+    .list-container {
+        grid-template-columns: 20rem !important;
+    }
+}
 
 
 

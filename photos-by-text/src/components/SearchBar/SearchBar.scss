@@ -3,9 +3,20 @@
 .side-by-side{
     height: 200px;
     display: flex; /* 2. display flex to the rescue */
-    flex-direction: row;
     justify-content: center;
 
+}
+
+@media only screen and (min-width: 500px) {
+    .side-by-side{
+        flex-direction: row;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .side-by-side{
+        flex-direction: column;
+    }
 }
 h1 { color: #7c795d;
     font-family: 'Trocchi', serif;
@@ -25,7 +36,7 @@ form {
     padding: 2px;
     border: 1px solid currentColor;
     border-radius: 5px;
-    margin: 0 0 30px;
+    margin: 0 0 5px;
     width: 400px;
 }
 

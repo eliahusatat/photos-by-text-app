@@ -42,7 +42,7 @@ function Dropdown({ title = 'search history', items, multiSelect = false , onCha
     }, [selection]);
 
     return (
-        <div className="dd-wrapper">
+        <div className="dd-wrapper m-top">
             <div
                 tabIndex={0}
                 className="dd-header"
