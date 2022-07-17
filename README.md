@@ -5,7 +5,7 @@
 
 #### Getting started:
 #### `git clone https://github.com/eliahusatat/photos-by-text-app.git`
-#### `cd ./photos-by-text-app/photos-by-text`
+#### `cd ./photos-by-text`
 #### `npm install`
 #### `npm start`
 
